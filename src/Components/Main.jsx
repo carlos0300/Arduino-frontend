@@ -1,5 +1,6 @@
 import {
   Button,
+  ButtonGroup,
   Grid,
   MenuItem,
   Table,
@@ -12,66 +13,18 @@ import {
   Typography,
 } from "@mui/material";
 
-import axios from "axios";
-
 import React from "react";
-import { useState } from "react";
 
-const Main = () => {
-
-    const [position, setPosition] = useState(0)
-    let [rutas, setRutas] = useState([])
-
-    let final
-    let lista = []
-
-  // opciones del select
-
-  //guarda los valores 
-
-  const onChange = (e) => {
-    final = e.target.value
-  }
-
-  const onSubmit = () => {
-    //enviamos la información al back
-    lista = rutas
-    lista.push({
-        "inicio": position,
-        "final": 0
-    })
-
-    axios.post("http://localhost:3001/addroute", lista)
-        .then((res) => {
-            console.log(rutas)
-            alert("Ruta Agregada Exitosamente")
-            })
-            .catch(error => {
-                alert("error")
-            })
-  }
-
-  const click = () => {
-    //agregamos la ruta
-    lista = rutas
-    lista.push({
-        "inicio": position,
-        "final": final
-    })
-    setRutas(lista)
-    setPosition(final)
-    console.log(rutas)
-  }
-
-  //This method to clean the routes 
-  const onClean = () => {
-    //We redirect to clean the component
-    window.location.href=("/")
-    console.log(rutas)
-  }
+const Main = ( {position,  rutas, click, onChange, onClean, onSubmit } ) => {
 
   return (
     <div >
+    <Grid sx={{marginX: "25vw", paddingY: "5vh"}}>
+            <ButtonGroup>
+                <Button variant="contained">Selección de Rutas</Button>
+                <Button>Seguimiento de Rutas</Button>
+            </ButtonGroup>
+            </Grid>
         <Grid container spacing={3} direction="column" alignItems="center">
           <Grid item>
             <Typography variant="subtitle1">Seleccione las Rutas</Typography>
