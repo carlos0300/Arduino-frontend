@@ -3,7 +3,9 @@ import {
   Grid,
   MenuItem,
   Table,
+  TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableRow,
   TextField,
@@ -18,7 +20,7 @@ import { useState } from "react";
 const Main = () => {
 
     const [position, setPosition] = useState(0)
-    const [rutas, setRutas] = useState([])
+    let [rutas, setRutas] = useState([])
 
     let final
     let lista = []
@@ -58,6 +60,13 @@ const Main = () => {
     })
     setRutas(lista)
     setPosition(final)
+    console.log(rutas)
+  }
+
+  //This method to clean the routes 
+  const onClean = () => {
+    //We redirect to clean the component
+    window.location.href=("/")
     console.log(rutas)
   }
 
@@ -109,16 +118,22 @@ const Main = () => {
                     <TableCell align="center">Lugar de Llegada</TableCell>
                 </TableRow>
             </TableHead>
-            {rutas.map((ruta) => (
-                <TableRow>
+            <TableBody>
+            {rutas.map((ruta, index) => (
+                <TableRow key={index}>
                     <TableCell align="center">Estación {ruta.inicio}</TableCell>
                     <TableCell align="center">Estación {ruta.final}</TableCell>
                 </TableRow>
                 ))}
+                </TableBody>
+                <TableFooter />
             </Table>
           </Grid>
           <Grid item>
-            <Button onClick={onSubmit} variant="contained" color="success">
+          <Button onClick ={onClean} variant="contained" color="primary">
+          Limpiar
+          </Button>
+            <Button onClick={onSubmit} variant="contained" color="success" sx={{marginLeft: "8px"}}>
                 Enviar
             </Button>
           </Grid>
